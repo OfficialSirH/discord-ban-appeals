@@ -20,7 +20,8 @@ exports.handler = async function (event, context) {
         payload = {
             punishmentType: params.get('casetype') || undefined,
             statement: params.get("statement") || undefined,
-            reason: params.get("reason") || undefined
+            reason: params.get("reason") || undefined,
+            token: params.get("token") || undefined,
         };
     }
 
