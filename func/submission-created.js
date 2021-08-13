@@ -19,8 +19,8 @@ exports.handler = async function (event, context) {
         const params = new URLSearchParams(event.body);
         payload = {
             punishmentType: params.get('casetype') || undefined,
-            statement: params.get("banReason") || undefined,
-            reason: params.get("appealText") || undefined
+            statement: params.get("statement") || undefined,
+            reason: params.get("reason") || undefined
         };
     }
 
