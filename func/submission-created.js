@@ -42,7 +42,7 @@ exports.handler = async function (event, context) {
         const message = {
             embed: {
                 title: "New appeal submitted!",
-                timestamp: Date.now(),
+                timestamp: new Date().toISOString(),
                 fields: [
                     {
                         name: "Submitter",
