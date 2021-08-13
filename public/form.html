@@ -1,104 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-        <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="style.css">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="appeal.css">
 
-        <title>Ban appeal form</title>
-    </head>
-    <body>
-        <div class="jumbotron text-center">
-            <h1>Ban appeal form</h1>
+    <title>Cell to Singularity appeal form</title>
+</head>
+
+<body>
+    <div class="header">
+        <div>
+            <img
+                src="https://images-ext-1.discordapp.net/external/gd8gHhvGPSchhFFsytLnehgYOqhvvE6ePiVYnaa_6MU/https/cdn.discordapp.com/icons/488478892873744385/a_086f9cd39d45d52eddf3ac59df28e520.webp">
+            <h1>Cell to Singularity appeal form</h1>
+            <img id="avatar" alt="Your avatar">
         </div>
-
-        <div class="container">
-            <div class="d-flex">
-                <img id="avatar" class="rounded-circle" width="64" height="64" alt="Your avatar">
-                <h2 id="username" class="ml-3 mb-0 align-self-center"></h2>
-            </div>
-
-            <form class="mt-3" method="post" name="appeal" action="/success" netlify>
-                <input type="hidden" id="token" name="token">
-                <div class="form-group">
-                    <label for="banReason">Why were you banned?</label>
-                    <div class="textInput">
-                        <textarea class="form-control" id="banReason" name="banReason" required maxlength="1024"></textarea>
-                        <div class="remainingLength"></div>
-                    </div>
+        <!-- <div class="main">
+            <form method="get" name="appeal" action="{{PATH}}">
+              <input type="hidden" id="token" name="token" value="{{TOKEN}}">
+              <div class="inline-box">
+                <div class="group">
+                  <label for="caseid">Case ID</label><br/>
+                  <input type="text" id="caseid" name="caseid" maxlength="16" placeholder="(if you have it)"></textarea>
                 </div>
-                <div class="form-group">
-                    <label for="appealText">Why do you feel you should be unbanned?</label>
-                    <div class="textInput">
-                        <textarea class="form-control" id="appealText" name="appealText" required maxlength="1024"></textarea>
-                        <div class="remainingLength"></div>
-                    </div>
+                <div class="group">
+                  <label>Case Type</label><br/>
+                  <input type="radio" id="ban" name="casetype" value="ban" required>
+                  <label class="smaller" for="ban">Ban</label>
+                  <input type="radio" id="kick" name="casetype" value="kick" required>
+                  <label class="smaller" for="ban">Kick</label>
+                  <input type="radio" id="mute" name="casetype" value="mute" required>
+                  <label class="smaller" for="ban">Mute</label>
+                  <input type="radio" id="warning" name="casetype" value="warning" required>
+                  <label class="smaller" for="ban">Warning</label>
                 </div>
-                <div class="form-group">
-                    <label for="futureActions">What will you do to avoid being banned in the future?</label>
-                    <div class="textInput">
-                        <textarea class="form-control" id="futureActions" name="futureActions" required maxlength="1024"></textarea>
-                        <div class="remainingLength"></div>
-                    </div>
-                </div>
-                <div class="text-right">
-                    <button type="submit" class="btn">Submit</button>
-                </div>
+              </div>
+              <div class="group">
+                <label for="statement">User Statement</label><br/>
+                <textarea class="full" id="statement" name="statement" required maxlength="1024" rows="20"></textarea>
+              </div>
+              <div class="group">
+                <label for="reason">Why should we appeal your punishment?</label><br/>
+                <textarea class="full" id="reason" name="reason" required maxlength="1024" rows="20"></textarea>
+              </div>
+              <div class="flex">
+                <input class="submit" type="submit" value="Submit">
+              </div>
             </form>
-        </div>
+          </div> -->
 
-        <script>
-            function parseJwt(token) {
-                const base64 = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
-                const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
+        jlsflsflksdfjldksjf
 
-                return JSON.parse(jsonPayload);
-            };
+        <form class="mt-3" method="post" name="appeal" action="/success" netlify>
+            <input type="hidden" id="token" name="token">
+            <div class="inline-box">
+                <div class="group">
+                    <label for="caseid">Case ID</label><br />
+                    <input type="text" id="caseid" name="caseid" maxlength="16"
+                        placeholder="(if you have it)"></textarea>
+                </div>
+                <div class="group">
+                    <label>Case Type</label><br />
+                    <input type="radio" id="ban" name="casetype" value="ban" required>
+                    <label class="smaller" for="ban">Ban</label>
+                    <input type="radio" id="kick" name="casetype" value="kick" required>
+                    <label class="smaller" for="ban">Kick</label>
+                    <input type="radio" id="mute" name="casetype" value="mute" required>
+                    <label class="smaller" for="ban">Mute</label>
+                    <input type="radio" id="warning" name="casetype" value="warning" required>
+                    <label class="smaller" for="ban">Warning</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="statement">User Statement</label>
+                <div class="textInput">
+                    <textarea class="form-control" id="statement" name="statement" required maxlength="1024"></textarea>
+                    <div class="remainingLength"></div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="reason">Why should we appeal your punishment?</label>
+                <div class="textInput">
+                    <textarea class="form-control" id="reason" name="reason" required
+                        maxlength="1024"></textarea>
+                    <div class="remainingLength"></div>
+                </div>
+            </div>
+            <div class="text-right">
+                <button type="submit" class="btn">Submit</button>
+            </div>
+        </form>
+    </div>
 
-            const params = new URLSearchParams(document.location.search.substring(1));
-            if (!params.has("state") || !params.has("token")) {
-                window.location.href = `/error?msg=${encodeURIComponent("Missing state or token")}`;
-            }
+    <script>
+        function parseJwt(token) {
+            const base64 = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
+            const jsonPayload = decodeURIComponent(atob(base64).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
 
-            if (params.get("state") !== localStorage.getItem("state")) {
-                window.location.href = `/error?msg=${encodeURIComponent("Invalid state")}`;
-            }
+            return JSON.parse(jsonPayload);
+        };
 
-            const jwt = params.get("token");
-            const userInfo = parseJwt(jwt);
+        const params = new URLSearchParams(document.location.search.substring(1));
+        if (!params.has("state") || !params.has("token")) {
+            window.location.href = `/error?msg=${encodeURIComponent("Missing state or token")}`;
+        }
 
-            const avatar = userInfo.avatar
-                ? `avatars/${encodeURIComponent(userInfo.id)}/${encodeURIComponent(userInfo.avatar)}.webp`
-                : `embed/avatars/${userInfo.discriminator % 5}.png`;
-            document.getElementById("avatar").src = `https://cdn.discordapp.com/${avatar}?size=256`;
+        if (params.get("state") !== localStorage.getItem("state")) {
+            window.location.href = `/error?msg=${encodeURIComponent("Invalid state")}`;
+        }
 
-            document.getElementById("username").textContent = `${userInfo.username}#${userInfo.discriminator}`;
+        const jwt = params.get("token");
+        const userInfo = parseJwt(jwt);
 
-            document.getElementById("token").value = jwt;
+        const avatar = userInfo.avatar
+            ? `avatars/${encodeURIComponent(userInfo.id)}/${encodeURIComponent(userInfo.avatar)}.webp`
+            : `embed/avatars/${userInfo.discriminator % 5}.png`;
+        document.getElementById("avatar").src = `https://cdn.discordapp.com/${avatar}?size=256`;
 
-            [...document.getElementsByClassName("textInput")].forEach(div => {
-                const textarea = div.firstElementChild;
+        document.getElementById("username").textContent = `${userInfo.username}#${userInfo.discriminator}`;
 
-                const updateTextarea = () => {
-                    textarea.style.height = "auto";
-                    textarea.style.height = `${textarea.scrollHeight}px`;
+        document.getElementById("token").value = jwt;
 
-                    const charactersRemaining = textarea.maxLength - textarea.textLength;
-                    const remainingLength = div.lastElementChild;
-                    if (charactersRemaining <= 100) {
-                        remainingLength.classList.add("lowOnSpace");
-                    } else {
-                        remainingLength.classList.remove("lowOnSpace");
-                    }
-                    remainingLength.textContent = charactersRemaining;
+        [...document.getElementsByClassName("textInput")].forEach(div => {
+            const textarea = div.firstElementChild;
+
+            const updateTextarea = () => {
+                textarea.style.height = "auto";
+                textarea.style.height = `${textarea.scrollHeight}px`;
+
+                const charactersRemaining = textarea.maxLength - textarea.textLength;
+                const remainingLength = div.lastElementChild;
+                if (charactersRemaining <= 100) {
+                    remainingLength.classList.add("lowOnSpace");
+                } else {
+                    remainingLength.classList.remove("lowOnSpace");
                 }
+                remainingLength.textContent = charactersRemaining;
+            }
 
-                updateTextarea();
-                textarea.oninput = updateTextarea;
-            })
-        </script>
-    </body>
+            updateTextarea();
+            textarea.oninput = updateTextarea;
+        })
+    </script>
+</body>
+
 </html>

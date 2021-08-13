@@ -18,17 +18,13 @@ exports.handler = async function (event, context) {
 
         const params = new URLSearchParams(event.body);
         payload = {
-            banReason: params.get("banReason") || undefined,
-            appealText: params.get("appealText") || undefined,
-            futureActions: params.get("futureActions") || undefined,
-            token: params.get("token") || undefined
+            punishmentType: params.get('ban') || params.get('mute') || params.get('kick') || params.get('warning') || undefined,
+            statement: params.get("banReason") || undefined,
+            reason: params.get("appealText") || undefined
         };
     }
 
-    if (payload.banReason !== undefined &&
-        payload.appealText !== undefined &&
-        payload.futureActions !== undefined && 
-        payload.token !== undefined) {
+    if (payload.statement != undefined && payload.reason != undefined && payload.punishmentType != undefined) {
         
         const userInfo = decodeJwt(payload.token);
         
@@ -45,28 +41,28 @@ exports.handler = async function (event, context) {
         const message = {
             embed: {
                 title: "New appeal submitted!",
-                timestamp: new Date().toISOString(),
+                timestamp: Date.now(),
                 fields: [
                     {
                         name: "Submitter",
                         value: `<@${userInfo.id}> (${userInfo.username}#${userInfo.discriminator})`
                     },
                     {
-                        name: "Why were you banned?",
-                        value: payload.banReason.slice(0, MAX_EMBED_FIELD_CHARS)
+                        name: "Type of punishment",
+                        value: payload.punishmentType
                     },
                     {
-                        name: "Why do you feel you should be unbanned?",
-                        value: payload.appealText.slice(0, MAX_EMBED_FIELD_CHARS)
+                        name: "User Statement",
+                        value: payload.statement
                     },
                     {
-                        name: "What will you do to avoid being banned in the future?",
-                        value: payload.futureActions.slice(0, MAX_EMBED_FIELD_CHARS)
+                        name: "Reason",
+                        value: payload.reason
                     }
                 ]
             }
         }
-
+        // TODO: edit stuff below this comment to do something else other than ban-related things
         if (process.env.GUILD_ID) {
             try {
                 const ban = await getBan(userInfo.id, process.env.GUILD_ID, process.env.DISCORD_BOT_TOKEN);
@@ -79,14 +75,14 @@ exports.handler = async function (event, context) {
                 console.log(e);
             }
 
-            if (!process.env.DISABLE_UNBAN_LINK) {
-                const unbanUrl = new URL("/.netlify/functions/unban", process.env.URL);
-                const unbanInfo = {
-                    userId: userInfo.id
-                };
+            // if (!process.env.DISABLE_UNBAN_LINK) {
+            //     const unbanUrl = new URL("/.netlify/functions/unban", process.env.URL);
+            //     const unbanInfo = {
+            //         userId: userInfo.id
+            //     };
     
-                message.embed.description = `[Approve appeal and unban user](${unbanUrl.toString()}?token=${encodeURIComponent(createJwt(unbanInfo))})`;
-            }
+            //     message.embed.description = `[Approve appeal and unban user](${unbanUrl.toString()}?token=${encodeURIComponent(createJwt(unbanInfo))})`;
+            // }
         }
 
         const result = await fetch(`${API_ENDPOINT}/channels/${encodeURIComponent(process.env.APPEALS_CHANNEL)}/messages`, {
