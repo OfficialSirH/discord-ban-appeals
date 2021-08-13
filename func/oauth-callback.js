@@ -31,17 +31,17 @@ exports.handler = async function (event, context) {
         }
 
         const user = await getUserInfo(data.access_token);
-        if (process.env.GUILD_ID && !process.env.SKIP_BAN_CHECK) {
-            const ban = await getBan(user.id, process.env.GUILD_ID, process.env.DISCORD_BOT_TOKEN);
-            if (ban === null) {
-                return {
-                    statusCode: 303,
-                    headers: {
-                        "Location": "/error"
-                    }
-                };
-            }
-        }
+        // if (process.env.GUILD_ID && !process.env.SKIP_BAN_CHECK) {
+        //     const ban = await getBan(user.id, process.env.GUILD_ID, process.env.DISCORD_BOT_TOKEN);
+        //     if (ban === null) {
+        //         return {
+        //             statusCode: 303,
+        //             headers: {
+        //                 "Location": "/error"
+        //             }
+        //         };
+        //     }
+        // }
 
         const userPublic = {
             id: user.id,
