@@ -18,9 +18,11 @@ exports.handler = async function (event, context) {
 
         const params = new URLSearchParams(event.body);
         payload = {
+            caseid: params.get("caseid") || undefined,
             punishmentType: params.get('casetype') || undefined,
             statement: params.get("statement") || undefined,
             reason: params.get("reason") || undefined,
+            email: params.get("email") || undefined,
             token: params.get("token") || undefined,
         };
     }
@@ -47,6 +49,14 @@ exports.handler = async function (event, context) {
                     {
                         name: "Submitter",
                         value: `<@${userInfo.id}> (${userInfo.username}#${userInfo.discriminator})`
+                    },
+                    {
+                        name: "Submitter Email",
+                        value: payload.email
+                    },
+                    {
+                        name: "Case ID",
+                        value: payload.caseid
                     },
                     {
                         name: "Type of punishment",
