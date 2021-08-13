@@ -18,7 +18,7 @@ exports.handler = async function (event, context) {
 
         const params = new URLSearchParams(event.body);
         payload = {
-            punishmentType: params.get('ban') || params.get('mute') || params.get('kick') || params.get('warning') || undefined,
+            punishmentType: params.get('casetype') || undefined,
             statement: params.get("banReason") || undefined,
             reason: params.get("appealText") || undefined
         };
@@ -62,7 +62,6 @@ exports.handler = async function (event, context) {
                 ]
             }
         }
-        // TODO: edit stuff below this comment to do something else other than ban-related things
         if (process.env.GUILD_ID) {
             try {
                 const ban = await getBan(userInfo.id, process.env.GUILD_ID, process.env.DISCORD_BOT_TOKEN);
