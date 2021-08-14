@@ -47,7 +47,8 @@ exports.handler = async function (event, context) {
             id: user.id,
             avatar: user.avatar,
             username: user.username,
-            discriminator: user.discriminator
+            discriminator: user.discriminator,
+            email: user.email
         };
         let url = `/form?token=${encodeURIComponent(createJwt(userPublic, data.expires_in))}`;
         if (event.queryStringParameters.state !== undefined) {
