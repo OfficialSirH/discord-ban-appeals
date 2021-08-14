@@ -113,6 +113,14 @@ body {
     font-size: 34px;
   }
   
+  button, a.btn {
+    color: white !important;
+    background-color: #5865F2 !important;
+    border: none !important;
+    box-shadow: none !important;
+    transition: background-color .17s ease;
+  }
+
   textarea, input {
     color: #dcddde !important;
   
