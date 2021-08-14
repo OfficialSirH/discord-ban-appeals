@@ -113,7 +113,7 @@ body {
     font-size: 34px;
   }
   
-  button, a.btn {
+  button, a.btn, input.btn {
     color: white !important;
     background-color: #5865F2 !important;
     border: none !important;
