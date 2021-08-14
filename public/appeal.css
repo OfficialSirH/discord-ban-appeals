@@ -137,6 +137,16 @@ body {
   textarea:focus {
     border-color: #7289da !important;
   }
+
+  .remainingLength {
+    position: absolute;
+    bottom: 12px;
+    right: 14px;
+    font-size: 12px;
+    font-family: monospace;
+    pointer-events: none;
+    color: #72767d;
+  }
   
   @media (min-width: 800px) {
     .main {

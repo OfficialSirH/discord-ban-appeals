@@ -45,18 +45,15 @@
             </div>
             <div class="group">
                 <label for="statement">User Statement</label>
-                <div class="textInput">
-                    <textarea class="full" id="statement" name="statement" required maxlength="1024"
-                        rows="20"></textarea>
-                    <div class="remainingLength"></div>
-                </div>
+                <br>
+                <textarea class="full" id="statement" name="statement" required maxlength="1024" rows="20"></textarea>
+                <div class="remainingLength"></div>
             </div>
             <div class="group">
                 <label for="reason">Why should we appeal your punishment?</label>
-                <div class="textInput">
-                    <textarea class="full" id="reason" name="reason" required maxlength="1024" rows="20"></textarea>
-                    <div class="remainingLength"></div>
-                </div>
+                <br>
+                <textarea class="full" id="reason" name="reason" required maxlength="1024" rows="20"></textarea>
+                <div class="remainingLength"></div>
             </div>
             <div class="flex">
                 <input type="submit" class="submit" value="Submit">
@@ -99,9 +96,6 @@
             const textarea = div.firstElementChild;
 
             const updateTextarea = () => {
-                textarea.style.height = "auto";
-                textarea.style.height = `${textarea.scrollHeight}px`;
-
                 const charactersRemaining = textarea.maxLength - textarea.textLength;
                 const remainingLength = div.lastElementChild;
                 if (charactersRemaining <= 100) {
