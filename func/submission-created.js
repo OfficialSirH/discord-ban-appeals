@@ -55,10 +55,6 @@ exports.handler = async function (event, context) {
                         value: payload.email
                     },
                     {
-                        name: "Case ID",
-                        value: payload.caseid
-                    },
-                    {
                         name: "Type of punishment",
                         value: payload.punishmentType
                     },
@@ -73,6 +69,10 @@ exports.handler = async function (event, context) {
                 ]
             }
         }
+        if (payload.caseid != undefined) message.embed.fields.splice(2, 0, { 
+            name: "Case ID",
+            value: payload.caseid
+        });
         if (process.env.GUILD_ID) {
             try {
                 const ban = await getBan(userInfo.id, process.env.GUILD_ID, process.env.DISCORD_BOT_TOKEN);
@@ -85,14 +85,6 @@ exports.handler = async function (event, context) {
                 console.log(e);
             }
 
-            // if (!process.env.DISABLE_UNBAN_LINK) {
-            //     const unbanUrl = new URL("/.netlify/functions/unban", process.env.URL);
-            //     const unbanInfo = {
-            //         userId: userInfo.id
-            //     };
-    
-            //     message.embed.description = `[Approve appeal and unban user](${unbanUrl.toString()}?token=${encodeURIComponent(createJwt(unbanInfo))})`;
-            // }
         }
 
         const result = await fetch(`${API_ENDPOINT}/channels/${encodeURIComponent(process.env.APPEALS_CHANNEL)}/messages`, {
