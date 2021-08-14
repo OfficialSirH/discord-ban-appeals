@@ -5,56 +5,24 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cell to Singularity appeal form</title>
+    <title>Cell to Singularity Appeal Form</title>
     <link rel="stylesheet" href="appeal.css">
-    <link rel="stylesheet" href="style.css">
 
-    <title>Cell to Singularity appeal form</title>
+    <title>Cell to Singularity Appeal Form</title>
 </head>
 
 <body>
-    <div class="main">
+    <div class="header">
         <div>
             <img
-                src="https://images-ext-1.discordapp.net/external/gd8gHhvGPSchhFFsytLnehgYOqhvvE6ePiVYnaa_6MU/https/cdn.discordapp.com/icons/488478892873744385/a_086f9cd39d45d52eddf3ac59df28e520.webp">
-            <h1>Cell to Singularity appeal form</h1>
+                src="https://images-ext-1.discordapp.net/external/gd8gHhvGPSchhFFsytLnehgYOqhvvE6ePiVYnaa_6MU/https/cdn.discordapp.com/icons/488478892873744385/a_086f9cd39d45d52eddf3ac59df28e520.webp?size=64">
+            <h1>Cell to Singularity Appeal Form</h1>
             <img id="avatar" alt="Your avatar">
-            <h2 id="username" class="ml-3 mb-0 align-self-center"></h2>
+            <h2 id="username"></h2>
         </div>
-        <!-- <div class="main">
-            <form method="get" name="appeal" action="{{PATH}}">
-              <input type="hidden" id="token" name="token" value="{{TOKEN}}">
-              <div class="inline-box">
-                <div class="group">
-                  <label for="caseid">Case ID</label><br/>
-                  <input type="text" id="caseid" name="caseid" maxlength="16" placeholder="(if you have it)"></textarea>
-                </div>
-                <div class="group">
-                  <label>Case Type</label><br/>
-                  <input type="radio" id="ban" name="casetype" value="ban" required>
-                  <label class="smaller" for="ban">Ban</label>
-                  <input type="radio" id="kick" name="casetype" value="kick" required>
-                  <label class="smaller" for="ban">Kick</label>
-                  <input type="radio" id="mute" name="casetype" value="mute" required>
-                  <label class="smaller" for="ban">Mute</label>
-                  <input type="radio" id="warning" name="casetype" value="warning" required>
-                  <label class="smaller" for="ban">Warning</label>
-                </div>
-              </div>
-              <div class="group">
-                <label for="statement">User Statement</label><br/>
-                <textarea class="full" id="statement" name="statement" required maxlength="1024" rows="20"></textarea>
-              </div>
-              <div class="group">
-                <label for="reason">Why should we appeal your punishment?</label><br/>
-                <textarea class="full" id="reason" name="reason" required maxlength="1024" rows="20"></textarea>
-              </div>
-              <div class="flex">
-                <input class="submit" type="submit" value="Submit">
-              </div>
-            </form>
-          </div> -->
-        <form class="mt-3" method="post" name="appeal" action="/success" netlify>
+    </div>
+    <div class="main">
+        <form method="post" name="appeal" action="/success" netlify>
             <input type="hidden" id="token" name="token">
             <input type="hidden" id="email" name="email">
             <div class="inline-box">
@@ -78,14 +46,15 @@
             <div class="group">
                 <label for="statement">User Statement</label>
                 <div class="textInput">
-                    <textarea class="full" id="statement" name="statement" required maxlength="1024"></textarea>
+                    <textarea class="full" id="statement" name="statement" required maxlength="1024"
+                        rows="20"></textarea>
                     <div class="remainingLength"></div>
                 </div>
             </div>
             <div class="group">
                 <label for="reason">Why should we appeal your punishment?</label>
                 <div class="textInput">
-                    <textarea class="full" id="reason" name="reason" required maxlength="1024"></textarea>
+                    <textarea class="full" id="reason" name="reason" required maxlength="1024" rows="20"></textarea>
                     <div class="remainingLength"></div>
                 </div>
             </div>
@@ -118,7 +87,7 @@
         const avatar = userInfo.avatar
             ? `avatars/${encodeURIComponent(userInfo.id)}/${encodeURIComponent(userInfo.avatar)}.webp`
             : `embed/avatars/${userInfo.discriminator % 5}.png`;
-        document.getElementById("avatar").src = `https://cdn.discordapp.com/${avatar}?size=256`;
+        document.getElementById("avatar").src = `https://cdn.discordapp.com/${avatar}?size=64`;
 
         document.getElementById("username").textContent = `${userInfo.username}#${userInfo.discriminator}`;
 
