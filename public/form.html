@@ -22,7 +22,6 @@
     <div class="main">
         <form method="post" name="appeal" action="/success" netlify>
             <input type="hidden" id="token" name="token">
-            <input type="hidden" id="email" name="email">
             <div class="inline-box">
                 <div class="group">
                     <label for="caseid">Case ID</label><br />
@@ -88,8 +87,6 @@
         document.getElementById("avatar").src = `https://cdn.discordapp.com/${avatar}?size=64`;
 
         document.getElementById("username").textContent = `${userInfo.username}#${userInfo.discriminator}`;
-
-        document.getElementById("email").value = userInfo.email;
 
         document.getElementById("token").value = jwt;
 

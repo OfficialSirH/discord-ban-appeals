@@ -22,7 +22,6 @@ exports.handler = async function (event, context) {
             punishmentType: params.get('casetype') || undefined,
             statement: params.get("statement") || undefined,
             reason: params.get("reason") || undefined,
-            email: params.get("email") || undefined,
             token: params.get("token") || undefined,
         };
     }
@@ -52,7 +51,7 @@ exports.handler = async function (event, context) {
                     },
                     {
                         name: "Submitter Email",
-                        value: payload.email
+                        value: userInfo.email
                     },
                     {
                         name: "Type of punishment",
