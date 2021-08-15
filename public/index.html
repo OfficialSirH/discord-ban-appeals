@@ -1,41 +1,53 @@
 <!DOCTYPE html>
-<html lang="en" class="h-100">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<html lang="en" class="h-100" prefix="og: https://ogp.me/ns/#">
 
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-        <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="style.css">
+<head>
+    <meta property="og:title" content="Cell to Singularity Appeal Form" />
+    <meta property="og:description" content="This is the punishment appeal form for the Cell to Singularity server." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="cell-to-singularity-appeal.netlify.app" />
+    <meta property="og:image"
+        content="https://images-ext-1.discordapp.net/external/gd8gHhvGPSchhFFsytLnehgYOqhvvE6ePiVYnaa_6MU/https/cdn.discordapp.com/icons/488478892873744385/a_086f9cd39d45d52eddf3ac59df28e520.webp" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-        <title>Cell to Singularity Punishment Appeal</title>
-    </head>
-    <body class="h-100 d-flex flex-column justify-content-center align-items-stretch">
-        <div class="jumbotron text-center mb-0">
-            <img src="https://images-ext-1.discordapp.net/external/gd8gHhvGPSchhFFsytLnehgYOqhvvE6ePiVYnaa_6MU/https/cdn.discordapp.com/icons/488478892873744385/a_086f9cd39d45d52eddf3ac59df28e520.webp">
-            <h1>Cell to Singularity Punishment Appeal</h1>
-        </div>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
 
-        <h2 style="color: red; padding: 64px;">Disclaimer: The login will ask for you to authorize your account, which will allow us to see your email, the reason for this is for easier communication after submission.</h2>
-        <div class="flex-fill text-center d-flex h-100 justify-content-center align-items-center">
-            <a class="btn" id="login" style="font-size: 2rem;" href="/.netlify/functions/oauth">Login with Discord</a>
-        </div>
-        <script>
-            function generateRandomString() {
-                const rand = Math.floor(Math.random() * 10);
-                let randStr = "";
+    <title>Cell to Singularity Punishment Appeal</title>
+</head>
 
-                for (let i = 0; i < 20 + rand; i++) {
-                    randStr += String.fromCharCode(33 + Math.floor(Math.random() * 94));
-                }
+<body class="h-100 d-flex flex-column justify-content-center align-items-stretch">
+    <div class="jumbotron text-center mb-0">
+        <img
+            src="https://images-ext-1.discordapp.net/external/gd8gHhvGPSchhFFsytLnehgYOqhvvE6ePiVYnaa_6MU/https/cdn.discordapp.com/icons/488478892873744385/a_086f9cd39d45d52eddf3ac59df28e520.webp">
+        <h1>Cell to Singularity Punishment Appeal</h1>
+    </div>
 
-                return randStr;
+    <h2 style="color: red; padding: 64px;">Disclaimer: The login will ask for you to authorize your account, which will
+        allow us to see your email, the reason for this is for easier communication after submission.</h2>
+    <div class="flex-fill text-center d-flex h-100 justify-content-center align-items-center">
+        <a class="btn" id="login" style="font-size: 2rem;" href="/.netlify/functions/oauth">Login with Discord</a>
+    </div>
+    <script>
+        function generateRandomString() {
+            const rand = Math.floor(Math.random() * 10);
+            let randStr = "";
+
+            for (let i = 0; i < 20 + rand; i++) {
+                randStr += String.fromCharCode(33 + Math.floor(Math.random() * 94));
             }
 
-            const state = generateRandomString();
-            localStorage.setItem("state", state);
+            return randStr;
+        }
 
-            document.getElementById("login").href += `?state=${encodeURIComponent(state)}`;
-        </script>
-    </body>
+        const state = generateRandomString();
+        localStorage.setItem("state", state);
+
+        document.getElementById("login").href += `?state=${encodeURIComponent(state)}`;
+    </script>
+</body>
+
 </html>
