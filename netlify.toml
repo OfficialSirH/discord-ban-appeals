@@ -1,10 +1,10 @@
 [build]
   publish = "public"
   functions = "func"
-  command = "node build.js"
+  command = "npm run build && node dist/build.js"
 
 [build.environment]
-  AWS_LAMBDA_JS_RUNTIME = "nodejs12.x"
+  AWS_LAMBDA_JS_RUNTIME = "nodejs16.x"
 
 [build.processing]
   css = { bundle = true, minify = true }
@@ -15,7 +15,7 @@
 [template.environment]
   DISCORD_CLIENT_ID = "Your Discord App's client ID"
   DISCORD_CLIENT_SECRET = "Your Discord App's client secret"
-  DISCORD_BOT_TOKEN = "Your Discord Bot Token"
+  DISCORD_TOKEN = "Your Discord Bot Token"
   GUILD_ID = "ID of the guild this deployment targets"
   APPEALS_CHANNEL = "ID of the channel used for appeal form submission"
   JWT_SECRET = "JSON Web Token secret, mash keyboard plz"
