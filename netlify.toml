@@ -8,12 +8,14 @@
 
 [build.processing]
   css = { bundle = true, minify = true }
-  js = { bundle = true, minify = true }
+  js = { minify = true }
   html = { pretty_urls = true }
   images = { compress = true }
 
 [functions]
   node_bundler = "esbuild"
+
+[functions.fetch]
   external_node_modules = ["undici"]
 
 [template.environment]
