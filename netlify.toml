@@ -4,7 +4,7 @@
   command = "npm run build && node dist/build.js"
 
 [build.environment]
-  NODE_VERSION = "nodejs16.x"
+  NODE_VERSION = "16.15.0"
 
 [build.processing]
   css = { bundle = true, minify = true }
