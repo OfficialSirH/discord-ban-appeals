@@ -12,15 +12,15 @@
 <body>
     <div class="header">
         <div>
-            <img
-                src="https://images-ext-2.discordapp.net/external/4nSMxnLeaO1Wx5_dd9nd8jV-4LcbG5m8tn9oybwtovs/https/cdn.discordapp.com/icons/488478892873744385/3371529f859735cafc6935286a0c6e3c.webp?size=64">
+            <img width="64" height="64"
+                src="https://github.com/OfficialSirH/Semblance-bot/blob/master/src/images/Current_Logo.png?raw=true">
             <h1>Cell to Singularity Appeal Form</h1>
             <img id="avatar" alt="Your avatar">
             <h2 id="username"></h2>
         </div>
     </div>
     <div class="main">
-        <form method="post" name="appeal" action="/success" netlify>
+        <form method="post" id="appeal" action="/.netlify/functions/submit-appeal">
             <input type="hidden" id="token" name="token">
             <div class="inline-box">
                 <div class="group">
