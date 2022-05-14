@@ -4,7 +4,7 @@
   command = "npm run build && node dist/build.js"
 
 [build.environment]
-  AWS_LAMBDA_JS_RUNTIME = "nodejs16.x"
+  NODE_VERSION = "nodejs16.x"
 
 [build.processing]
   css = { bundle = true, minify = true }
