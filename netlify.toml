@@ -12,6 +12,10 @@
   html = { pretty_urls = true }
   images = { compress = true }
 
+[functions]
+  node_bundler = "esbuild"
+  external_node_modules = ["undici"]
+
 [template.environment]
   DISCORD_CLIENT_ID = "Your Discord App's client ID"
   DISCORD_CLIENT_SECRET = "Your Discord App's client secret"
