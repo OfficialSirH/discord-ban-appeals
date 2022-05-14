@@ -1,16 +1,13 @@
 import type { Handler } from "@netlify/functions";
-import type {
-  APIMessage,
-  RESTPostAPIChannelMessageJSONBody,
-} from "discord-api-types/v10";
+import type { RESTPostAPIChannelMessageJSONBody } from "discord-api-types/v10";
+import fetch from "node-fetch";
 
-const {
+import {
   API_ENDPOINT,
-  MAX_EMBED_FIELD_CHARS,
   MAX_EMBED_FOOTER_CHARS,
-} = require("./helpers/discord-helpers.js");
-const { createJwt, decodeJwt } = require("./helpers/jwt-helpers.js");
-const { getBan } = require("./helpers/user-helpers.js");
+} from "./helpers/discord-helpers.js";
+import { decodeJwt } from "./helpers/jwt-helpers.js";
+import { getBan } from "./helpers/user-helpers.js";
 
 export const handler: Handler = async (event) => {
   let payload;
@@ -35,7 +32,7 @@ export const handler: Handler = async (event) => {
     payload.reason != undefined &&
     payload.punishmentType != undefined
   ) {
-    const userInfo = decodeJwt(payload.token);
+    const userInfo = decodeJwt(payload.token!);
 
     const blockedUsers = JSON.parse(`[${process.env.BLOCKED_USERS || ""}]`);
     if (blockedUsers.indexOf(userInfo.id) > -1) {
@@ -89,7 +86,7 @@ export const handler: Handler = async (event) => {
         const ban = await getBan(
           userInfo.id,
           process.env.GUILD_ID,
-          process.env.DISCORD_TOKEN
+          <string>process.env.DISCORD_TOKEN
         );
         if (ban !== null && ban.reason) {
           message.embeds!.at(0)!.footer = {

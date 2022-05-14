@@ -1,8 +1,9 @@
 import type { Handler } from "@netlify/functions";
+import type { RESTPostOAuth2AccessTokenWithBotAndGuildsScopeResult } from "discord-api-types/v10";
+import fetch from "node-fetch";
 
-import { getUserInfo, getBan } from "./helpers/user-helpers.js";
+import { getUserInfo } from "./helpers/user-helpers.js";
 import { createJwt, UserDataPayload } from "./helpers/jwt-helpers.js";
-import type { RESTPostOAuth2AccessTokenWithBotAndGuildsScopeResult } from "discord-api-types/v10.js";
 
 export const handler: Handler = async (event) => {
   if (event.httpMethod !== "GET") {
