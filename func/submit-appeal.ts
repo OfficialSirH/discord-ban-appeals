@@ -77,7 +77,7 @@ export const handler: Handler = async (event) => {
       ],
     };
     if (payload.caseid != undefined)
-      message.embeds?.at(0)?.fields?.splice(2, 0, {
+      message.embeds![0]?.fields?.splice(2, 0, {
         name: "Case ID",
         value: payload.caseid,
       });
@@ -89,7 +89,7 @@ export const handler: Handler = async (event) => {
           <string>process.env.DISCORD_TOKEN
         );
         if (ban !== null && ban.reason) {
-          message.embeds!.at(0)!.footer = {
+          message.embeds![0]!.footer = {
             text: `Original ban reason: ${ban.reason}`.slice(
               0,
               MAX_EMBED_FOOTER_CHARS
