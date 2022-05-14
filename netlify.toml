@@ -1,10 +1,10 @@
 [build]
   publish = "public"
   functions = "func"
-  command = "npm run build && node dist/build.js"
+  command = "npm run build && node --experimental-fetch dist/build.js"
 
 [build.environment]
-  NODE_VERSION = "18.1.0"
+  NODE_VERSION = "17.9.0"
 
 [build.processing]
   css = { bundle = true, minify = true }
