@@ -4,19 +4,13 @@
   command = "npm run build && node dist/build.js"
 
 [build.environment]
-  NODE_VERSION = "16.15.0"
+  NODE_VERSION = "18.1.0"
 
 [build.processing]
   css = { bundle = true, minify = true }
   js = { minify = true }
   html = { pretty_urls = true }
   images = { compress = true }
-
-[functions]
-  node_bundler = "esbuild"
-
-[functions.fetch]
-  external_node_modules = ["undici"]
 
 [template.environment]
   DISCORD_CLIENT_ID = "Your Discord App's client ID"

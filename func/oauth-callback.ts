@@ -1,5 +1,4 @@
 import type { Handler } from "@netlify/functions";
-import { fetch } from "undici";
 
 import { getUserInfo, getBan } from "./helpers/user-helpers.js";
 import { createJwt, UserDataPayload } from "./helpers/jwt-helpers.js";

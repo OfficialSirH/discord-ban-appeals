@@ -3,7 +3,6 @@ import type {
   APIMessage,
   RESTPostAPIChannelMessageJSONBody,
 } from "discord-api-types/v10";
-import { fetch } from "undici";
 
 const {
   API_ENDPOINT,

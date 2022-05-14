@@ -1,6 +1,4 @@
 import type { APIUser, RESTGetAPIGuildBanResult } from "discord-api-types/v10";
-import { fetch } from "undici";
-import type { HttpMethod } from "undici/types/dispatcher.js";
 
 import { API_ENDPOINT } from "./discord-helpers.js";
 
@@ -26,7 +24,7 @@ function callBanApi(
   userId: string,
   guildId: string,
   botToken: string,
-  method: HttpMethod
+  method: "GET" | "PUT" | "DELETE"
 ) {
   return fetch(
     `${API_ENDPOINT}/guilds/${encodeURIComponent(
