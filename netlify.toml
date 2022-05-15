@@ -21,7 +21,6 @@
 
 [functions]
   node_bundler = "esbuild"
-  external_node_modules = ["timers/promises"]
 
 [template.environment]
   DISCORD_CLIENT_ID = "Your Discord App's client ID"
