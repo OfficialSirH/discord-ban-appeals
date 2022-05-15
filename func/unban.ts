@@ -14,7 +14,11 @@ export const handler: Handler = async (event) => {
     const unbanInfo = decodeJwt(event.queryStringParameters.token);
     if (unbanInfo.userId !== undefined) {
       try {
-        await unbanUser(unbanInfo.userId, <string>process.env.GUILD_ID);
+        await unbanUser(
+          unbanInfo.userId,
+          <string>process.env.GUILD_ID,
+          <string>process.env.DISCORD_TOKEN
+        );
 
         return {
           statusCode: 303,
