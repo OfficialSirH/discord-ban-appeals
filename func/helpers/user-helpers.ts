@@ -1,5 +1,5 @@
 import type { APIUser, RESTGetAPIGuildBanResult } from "discord-api-types/v10";
-import fetch from "node-fetch";
+import { fetch } from "undici";
 
 import { API_ENDPOINT } from "./discord-helpers.js";
 

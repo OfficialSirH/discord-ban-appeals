@@ -1,6 +1,6 @@
 import type { Handler } from "@netlify/functions";
 import type { RESTPostOAuth2AccessTokenWithBotAndGuildsScopeResult } from "discord-api-types/v10";
-import fetch from "node-fetch";
+import { fetch } from "undici";
 
 import { getUserInfo } from "./helpers/user-helpers.js";
 import { createJwt, UserDataPayload } from "./helpers/jwt-helpers.js";
