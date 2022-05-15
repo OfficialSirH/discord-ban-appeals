@@ -1,7 +1,7 @@
 [build]
   publish = "public"
   functions = "func"
-  command = "npm run start"
+  command = "npm run build && node dist/build.js"
 
 [build.environment]
   NODE_VERSION = "17.9.0"
