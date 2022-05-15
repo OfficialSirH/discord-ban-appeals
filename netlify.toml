@@ -7,7 +7,7 @@
   NODE_VERSION = "17.9.0"
 
 [build.processing]
-  skip_processing = false
+  skip_processing = true
 [build.processing.css]
   bundle = true
   minify = true
@@ -19,8 +19,8 @@
 [build.processing.images]
   compress = true
 
-[functions]
-  node_bundler = "esbuild"
+# [functions]
+#   node_bundler = "esbuild"
 
 [template.environment]
   DISCORD_CLIENT_ID = "Your Discord App's client ID"
