@@ -1,71 +1,46 @@
-import type { APIUser, RESTGetAPIGuildBanResult } from "discord-api-types/v10";
-import fetch from "node-fetch";
-
-import { API_ENDPOINT } from "./discord-helpers.js";
+import {
+  RESTDeleteAPIGuildBanResult,
+  RESTGetAPIGuildBanResult,
+  RESTGetAPIUserResult,
+  Routes,
+} from "discord-api-types/v10";
+import { restClient } from "./discord-helpers";
 
 export const getUserInfo = async (token: string) => {
-  const result = await fetch(`${API_ENDPOINT}/users/@me`, {
-    method: "GET",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
+  const result = await (<Promise<RESTGetAPIUserResult>>restClient(token).get(
+    Routes.user(),
+    {
+      authPrefix: "Bearer",
+    }
+  )).catch(() => null);
 
-  const data = await result.json();
-
-  if (!result.ok) {
-    console.log(data);
+  if (!result) {
+    console.log(result);
     throw new Error("Failed to get user information");
   }
 
-  return <APIUser>data;
+  return result;
 };
 
-function callBanApi(
-  userId: string,
-  guildId: string,
-  botToken: string,
-  method: "GET" | "PUT" | "DELETE"
-) {
-  return fetch(
-    `${API_ENDPOINT}/guilds/${encodeURIComponent(
-      guildId
-    )}/bans/${encodeURIComponent(userId)}`,
-    {
-      method,
-      headers: {
-        Authorization: `Bot ${botToken}`,
-      },
-    }
-  );
-}
+export const getBan = async (userId: string, guildId: string) => {
+  const result = await (<Promise<RESTGetAPIGuildBanResult>>restClient()
+    .get(Routes.guildBan(guildId, userId))
+    .catch(() => null));
 
-export const getBan = async (
-  userId: string,
-  guildId: string,
-  botToken: string
-) => {
-  const result = await callBanApi(userId, guildId, botToken, "GET");
+  if (result) return result;
 
-  if (result.ok) {
-    return <Promise<RESTGetAPIGuildBanResult>>result.json();
-  } else if (result.status === 404) {
-    return null;
-  } else {
-    console.log(await result.json());
-    throw new Error("Failed to get user ban");
-  }
+  console.log(result);
+  throw new Error("Failed to get user ban");
 };
 
-export const unbanUser = async (
-  userId: string,
-  guildId: string,
-  botToken: string
-) => {
-  const result = await callBanApi(userId, guildId, botToken, "DELETE");
+export const unbanUser = async (userId: string, guildId: string) => {
+  const result = (await (<Promise<RESTDeleteAPIGuildBanResult>>restClient()
+    .delete(Routes.guildBan(guildId, userId))
+    .then(() => true)
+    .catch(() => false))) as boolean;
 
-  if (!result.ok && result.status !== 404) {
-    console.log(await result.json());
+  if (!result) {
+    console.log(result);
     throw new Error("Failed to unban user");
   }
 };
