@@ -31,4 +31,11 @@ export const makeRequest = async <Ok>({
   )
     .json()
     .then((res) => ({ ok: <Ok>res, err: undefined }))
-    .catch((err) => ({ ok: undefined, err }));
+    .then((res) => {
+      console.log(res);
+      return res;
+    })
+    .catch((err) => {
+      console.log(err);
+      return { ok: undefined, err };
+    });
