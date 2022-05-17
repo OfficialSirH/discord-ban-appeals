@@ -1,9 +1,12 @@
 import type { Handler } from "@netlify/functions";
-import type { RESTPostOAuth2AccessTokenWithBotAndGuildsScopeResult } from "discord-api-types/v10";
-import fetch from "node-fetch";
+import {
+  type RESTPostOAuth2AccessTokenResult,
+  Routes,
+} from "discord-api-types/v10";
 
 import { getUserInfo } from "./helpers/user-helpers.js";
 import { createJwt, UserDataPayload } from "./helpers/jwt-helpers.js";
+import { makeRequest } from "./helpers/discord-helpers.js";
 
 export const handler: Handler = async (event) => {
   if (event.httpMethod !== "GET") {
@@ -13,28 +16,25 @@ export const handler: Handler = async (event) => {
   }
 
   if (event.queryStringParameters?.code !== undefined) {
-    const result = await fetch("https://discord.com/api/oauth2/token", {
+    const result = await makeRequest<RESTPostOAuth2AccessTokenResult>({
       method: "POST",
-      body: new URLSearchParams({
-        client_id: <string>process.env.DISCORD_CLIENT_ID,
-        client_secret: <string>process.env.DISCORD_CLIENT_SECRET,
+      route: Routes.oauth2TokenExchange(),
+      body: {
+        client_id: process.env.DISCORD_CLIENT_ID,
+        client_secret: process.env.DISCORD_CLIENT_SECRET,
         grant_type: "authorization_code",
         code: event.queryStringParameters.code,
-        redirect_uri: new URL(event.path, process.env.URL).toString(),
+        redirect_uri: new URL(event.path, process.env.URL),
         scope: "identify",
-      }),
+      },
     });
 
-    const data = await (<
-      Promise<RESTPostOAuth2AccessTokenWithBotAndGuildsScopeResult>
-    >result.json());
-
     if (!result.ok) {
-      console.log(data);
+      console.log(result.err);
       throw new Error("Failed to get user access token");
     }
 
-    const user = await getUserInfo(data.access_token);
+    const user = await getUserInfo(result.ok.access_token);
 
     const userPublic = <UserDataPayload>{
       id: user.id,
@@ -44,7 +44,7 @@ export const handler: Handler = async (event) => {
       email: user.email,
     };
     let url = `/form?token=${encodeURIComponent(
-      createJwt(userPublic, data.expires_in)
+      createJwt(userPublic, result.ok.expires_in)
     )}`;
     if (event.queryStringParameters.state !== undefined) {
       url += `&state=${encodeURIComponent(event.queryStringParameters.state)}`;

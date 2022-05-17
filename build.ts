@@ -1,7 +1,7 @@
-import { Client } from "discord.js";
 import { unlink } from "fs";
 import { resolve } from "path";
-import type { APIUser } from "discord-api-types/v10";
+import { Routes } from "discord-api-types/v10";
+import fetch from "node-fetch";
 
 async function main() {
   if (process.env.DISABLE_UNBAN_LINK) {
@@ -14,21 +14,15 @@ async function main() {
     });
   }
 
-  // Make sure the bot actually exists by testing a request for a specific user.
-  type APIUserRequest = {
-    users: {
-      [key: string]: {
-        get: () => Promise<APIUser>;
-      };
-    };
-  };
-
-  const client = new Client({
-    intents: [],
-  });
-
   try {
-    await (<APIUserRequest>client["api"]).users["780995336293711875"].get();
+    await fetch(
+      `https://discord.com/api/v10${Routes.user("780995336293711875")}`,
+      {
+        headers: {
+          Authorization: `Bot ${process.env.DISCORD_TOKEN}`,
+        },
+      }
+    );
   } catch (e) {
     console.log(e);
     process.exit(1);

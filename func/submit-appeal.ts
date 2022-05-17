@@ -1,9 +1,12 @@
 import type { Handler } from "@netlify/functions";
-import type { RESTPostAPIChannelMessageJSONBody } from "discord-api-types/v10";
-import fetch from "node-fetch";
+import {
+  type RESTPostAPIChannelMessageJSONBody,
+  Routes,
+  type RESTPostAPIChannelMessageResult,
+} from "discord-api-types/v10";
 
 import {
-  API_ENDPOINT,
+  makeRequest,
   MAX_EMBED_FOOTER_CHARS,
 } from "./helpers/discord-helpers.js";
 import { decodeJwt } from "./helpers/jwt-helpers.js";
@@ -34,7 +37,9 @@ export const handler: Handler = async (event) => {
   ) {
     const userInfo = decodeJwt(payload.token!);
 
-    const blockedUsers = JSON.parse(`[${process.env.BLOCKED_USERS || ""}]`);
+    const blockedUsers: string[] = JSON.parse(
+      `[${process.env.BLOCKED_USERS || ""}]`
+    );
     if (blockedUsers.indexOf(userInfo.id) > -1) {
       return {
         statusCode: 303,
@@ -83,11 +88,7 @@ export const handler: Handler = async (event) => {
       });
     if (process.env.GUILD_ID) {
       try {
-        const ban = await getBan(
-          userInfo.id,
-          process.env.GUILD_ID,
-          <string>process.env.DISCORD_TOKEN
-        );
+        const ban = await getBan(userInfo.id, process.env.GUILD_ID);
         if (ban !== null && ban.reason) {
           message.embeds![0]!.footer = {
             text: `Original ban reason: ${ban.reason}`.slice(
@@ -101,19 +102,11 @@ export const handler: Handler = async (event) => {
       }
     }
 
-    const result = await fetch(
-      `${API_ENDPOINT}/channels/${encodeURIComponent(
-        <string>process.env.APPEALS_CHANNEL
-      )}/messages`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bot ${process.env.DISCORD_TOKEN}`,
-        },
-        body: JSON.stringify(message),
-      }
-    );
+    const result = await makeRequest<RESTPostAPIChannelMessageResult>({
+      method: "POST",
+      route: Routes.channelMessages(<string>process.env.APPEALS_CHANNEL),
+      body: message,
+    });
 
     if (result.ok)
       return {
@@ -123,7 +116,7 @@ export const handler: Handler = async (event) => {
         },
       };
 
-    console.log(await result.json());
+    console.log(result.err);
     throw new Error("Failed to submit message");
   }
 

@@ -5,6 +5,7 @@ export const handler: Handler = async (event) => {
     "/.netlify/functions/oauth-callback",
     process.env.URL
   );
+
   let url = `https://discord.com/api/oauth2/authorize?client_id=${encodeURIComponent(
     <string>process.env.DISCORD_CLIENT_ID
   )}&redirect_uri=${encodeURIComponent(
