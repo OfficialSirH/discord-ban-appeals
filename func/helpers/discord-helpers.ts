@@ -35,7 +35,10 @@ export const makeRequest = async <Ok>({
       {
         method,
         headers: {
-          Authorization: `${token.type} ${token.value}`,
+          Authorization:
+            contentType != "application/json"
+              ? ((<unknown>undefined) as string)
+              : `${token.type} ${token.value}`,
           "Content-Type": contentType,
         },
         body: typeof body == "object" ? JSON.stringify(body) : body,
@@ -43,12 +46,9 @@ export const makeRequest = async <Ok>({
     )
   )
     .json()
-    .then((res) => ({ ok: <Ok>res, err: undefined }))
     .then((res) => {
-      console.log(res);
-      return res;
+      if ("error" in <object>res || "message" in <object>res) throw res;
+
+      return { ok: <Ok>res, err: undefined };
     })
-    .catch((err) => {
-      console.log(err);
-      return { ok: undefined, err };
-    });
+    .catch((err) => ({ ok: undefined, err }));
