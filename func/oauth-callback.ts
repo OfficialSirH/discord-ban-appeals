@@ -18,6 +18,7 @@ export const handler: Handler = async (event) => {
   if (event.queryStringParameters?.code !== undefined) {
     const result = await makeRequest<RESTPostOAuth2AccessTokenResult>({
       method: "POST",
+      contentType: "application/x-www-form-urlencoded",
       route: Routes.oauth2TokenExchange(),
       querystring: {
         client_id: process.env.DISCORD_CLIENT_ID!,

@@ -10,12 +10,14 @@ export const MAX_EMBED_FIELD_CHARS = 1024;
 export const MAX_EMBED_FOOTER_CHARS = 2048;
 export const makeRequest = async <Ok>({
   method = "GET",
+  contentType = "application/json",
   route,
   token = { type: "Bot", value: <string>process.env.DISCORD_TOKEN },
   body,
   querystring = {},
 }: {
   method?: "POST" | "GET" | "DELETE";
+  contentType?: "application/json" | "application/x-www-form-urlencoded";
   route: ReturnType<typeof Routes[keyof typeof Routes]>;
   token?: { type: "Bearer" | "Bot"; value: string };
   body?: object | string;
@@ -34,7 +36,7 @@ export const makeRequest = async <Ok>({
         method,
         headers: {
           Authorization: `${token.type} ${token.value}`,
-          "Content-Type": "application/json",
+          "Content-Type": contentType,
         },
         body: typeof body == "object" ? JSON.stringify(body) : body,
       }
