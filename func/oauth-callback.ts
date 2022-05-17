@@ -16,18 +16,30 @@ export const handler: Handler = async (event) => {
   }
 
   if (event.queryStringParameters?.code !== undefined) {
+    const data = {
+      client_id: process.env.DISCORD_CLIENT_ID!,
+      client_secret: process.env.DISCORD_CLIENT_SECRET!,
+      grant_type: "authorization_code",
+      code: event.queryStringParameters.code,
+      redirect_uri: new URL(event.path, process.env.URL).toString(),
+      scope: "identify",
+    };
+
+    // convert data to x-www-form-urlencoded string
+    const formData = Object.keys(data)
+      .map(
+        (key) =>
+          `${encodeURIComponent(key)}=${encodeURIComponent(
+            data[<keyof typeof data>key]
+          )}`
+      )
+      .join("&");
+
     const result = await makeRequest<RESTPostOAuth2AccessTokenResult>({
       method: "POST",
       contentType: "application/x-www-form-urlencoded",
       route: Routes.oauth2TokenExchange(),
-      querystring: {
-        client_id: process.env.DISCORD_CLIENT_ID!,
-        client_secret: process.env.DISCORD_CLIENT_SECRET!,
-        grant_type: "authorization_code",
-        code: event.queryStringParameters.code,
-        redirect_uri: new URL(event.path, process.env.URL).toString(),
-        scope: "identify",
-      },
+      body: formData,
     });
 
     if (!result.ok) {
