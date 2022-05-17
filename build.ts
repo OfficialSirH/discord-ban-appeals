@@ -1,7 +1,7 @@
 import { unlink } from "fs";
 import { resolve } from "path";
 import { type RESTGetAPIUserResult, Routes } from "discord-api-types/v10";
-import { makeRequest } from "func/helpers/discord-helpers";
+import type { makeRequest as MakeRequestFunction } from "func/helpers/discord-helpers";
 
 async function main() {
   if (process.env.DISABLE_UNBAN_LINK) {
@@ -15,6 +15,9 @@ async function main() {
   }
 
   try {
+    const netlifyPath = ".netlify/functions/helpers/discord-helpers";
+    const makeRequest: typeof MakeRequestFunction = (await import(netlifyPath))
+      .makeRequest;
     await makeRequest<RESTGetAPIUserResult>({
       route: Routes.user("780995336293711875"),
     });
