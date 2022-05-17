@@ -13,21 +13,32 @@ export const makeRequest = async <Ok>({
   route,
   token = { type: "Bot", value: <string>process.env.DISCORD_TOKEN },
   body,
+  querystring = {},
 }: {
   method?: "POST" | "GET" | "DELETE";
   route: ReturnType<typeof Routes[keyof typeof Routes]>;
   token?: { type: "Bearer" | "Bot"; value: string };
   body?: object | string;
+  querystring?: Record<string, string>;
 }): Promise<RequestResult<Ok>> =>
   (
-    await fetch(`https://discord.com/api/v10${route}`, {
-      method,
-      headers: {
-        Authorization: `${token.type} ${token.value}`,
-        "Content-Type": "application/json",
-      },
-      body: typeof body == "object" ? JSON.stringify(body) : body,
-    })
+    await fetch(
+      `https://discord.com/api/v10${route}${
+        Object.keys(querystring).length > 0
+          ? `?${Object.keys(querystring)
+              .map((key) => `${key}=${encodeURIComponent(querystring[key])}`)
+              .join("&")}`
+          : ""
+      }`,
+      {
+        method,
+        headers: {
+          Authorization: `${token.type} ${token.value}`,
+          "Content-Type": "application/json",
+        },
+        body: typeof body == "object" ? JSON.stringify(body) : body,
+      }
+    )
   )
     .json()
     .then((res) => ({ ok: <Ok>res, err: undefined }))

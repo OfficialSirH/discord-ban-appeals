@@ -19,12 +19,12 @@ export const handler: Handler = async (event) => {
     const result = await makeRequest<RESTPostOAuth2AccessTokenResult>({
       method: "POST",
       route: Routes.oauth2TokenExchange(),
-      body: {
-        client_id: process.env.DISCORD_CLIENT_ID,
-        client_secret: process.env.DISCORD_CLIENT_SECRET,
+      querystring: {
+        client_id: process.env.DISCORD_CLIENT_ID!,
+        client_secret: process.env.DISCORD_CLIENT_SECRET!,
         grant_type: "authorization_code",
         code: event.queryStringParameters.code,
-        redirect_uri: new URL(event.path, process.env.URL),
+        redirect_uri: new URL(event.path, process.env.URL).toString(),
         scope: "identify",
       },
     });
