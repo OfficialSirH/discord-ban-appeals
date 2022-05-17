@@ -9,7 +9,7 @@ import { makeRequest } from "./discord-helpers";
 export const getUserInfo = async (token: string) => {
   const result = await makeRequest<RESTGetAPIUserResult>({
     route: Routes.user(),
-    token,
+    token: { type: "Bearer", value: token },
   });
 
   if (!result.ok) {

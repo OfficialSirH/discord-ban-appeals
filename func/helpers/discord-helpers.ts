@@ -11,21 +11,19 @@ export const MAX_EMBED_FOOTER_CHARS = 2048;
 export const makeRequest = async <Ok>({
   method = "GET",
   route,
-  token,
+  token = { type: "Bot", value: <string>process.env.DISCORD_TOKEN },
   body,
 }: {
   method?: "POST" | "GET" | "DELETE";
   route: ReturnType<typeof Routes[keyof typeof Routes]>;
-  token?: string;
+  token?: { type: "Bearer" | "Bot"; value: string };
   body?: object | string;
 }): Promise<RequestResult<Ok>> =>
   (
     await fetch(`https://discord.com/api/v10${route}`, {
       method,
       headers: {
-        Authorization: `${token ? "Bearer" : "Bot"} ${
-          token || process.env.DISCORD_TOKEN
-        }`,
+        Authorization: `${token.type} ${token.value}`,
         "Content-Type": "application/json",
       },
       body: typeof body == "object" ? JSON.stringify(body) : body,
