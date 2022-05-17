@@ -1,12 +1,13 @@
 import type { Handler } from "@netlify/functions";
 import {
-  RESTPostAPIChannelMessageJSONBody,
+  type RESTPostAPIChannelMessageJSONBody,
   Routes,
+  type RESTPostAPIChannelMessageResult,
 } from "discord-api-types/v10";
 
 import {
+  makeRequest,
   MAX_EMBED_FOOTER_CHARS,
-  restClient,
 } from "./helpers/discord-helpers.js";
 import { decodeJwt } from "./helpers/jwt-helpers.js";
 import { getBan } from "./helpers/user-helpers.js";
@@ -101,13 +102,13 @@ export const handler: Handler = async (event) => {
       }
     }
 
-    const result = await restClient()
-      .post(Routes.channelMessages(<string>process.env.APPEALS_CHANNEL), {
-        body: JSON.stringify(message),
-      })
-      .catch(() => null);
+    const result = await makeRequest<RESTPostAPIChannelMessageResult>({
+      method: "POST",
+      route: Routes.channelMessages(<string>process.env.APPEALS_CHANNEL),
+      body: message,
+    });
 
-    if (result)
+    if (result.ok)
       return {
         statusCode: 303,
         headers: {
@@ -115,7 +116,7 @@ export const handler: Handler = async (event) => {
         },
       };
 
-    console.log(result);
+    console.log(result.err);
     throw new Error("Failed to submit message");
   }
 

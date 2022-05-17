@@ -1,7 +1,7 @@
-import { REST } from "@discordjs/rest";
 import { unlink } from "fs";
 import { resolve } from "path";
 import { type RESTGetAPIUserResult, Routes } from "discord-api-types/v10";
+import { makeRequest } from "func/helpers/discord-helpers";
 
 async function main() {
   if (process.env.DISABLE_UNBAN_LINK) {
@@ -14,13 +14,10 @@ async function main() {
     });
   }
 
-  const client = new REST();
-  client.setToken(<string>process.env.DISCORD_TOKEN);
-
   try {
-    await (<Promise<RESTGetAPIUserResult>>(
-      client.get(Routes.user("780995336293711875"))
-    ));
+    await makeRequest<RESTGetAPIUserResult>({
+      route: Routes.user("780995336293711875"),
+    });
   } catch (e) {
     console.log(e);
     process.exit(1);
