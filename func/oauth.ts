@@ -1,12 +1,14 @@
 import type { Handler } from "@netlify/functions";
 
 export const handler: Handler = async (event) => {
+  const origin = event.queryStringParameters?.origin || "form";
+
   const redirectUri = new URL(
-    `/.netlify/functions/oauth-callback?origin=${event.path}`,
+    `/.netlify/functions/oauth-callback?origin=${origin}`,
     process.env.URL
   );
 
-  const scope = event.path == "/form" ? "identify%20email" : "identify";
+  const scope = origin == "form" ? "identify%20email" : "identify";
 
   let url = `https://discord.com/api/oauth2/authorize?client_id=${encodeURIComponent(
     <string>process.env.DISCORD_CLIENT_ID

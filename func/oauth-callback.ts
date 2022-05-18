@@ -53,7 +53,7 @@ export const handler: Handler = async (event) => {
 
   const user = await getUserInfo(result.ok.access_token);
 
-  if (event.queryStringParameters.origin === "/form") {
+  if (event.queryStringParameters.origin === "form") {
     const userPublic = <UserDataPayload>{
       id: user.id,
       avatar: user.avatar,
@@ -76,7 +76,7 @@ export const handler: Handler = async (event) => {
     };
   }
 
-  if (event.queryStringParameters.origin === "/link") {
+  if (event.queryStringParameters.origin === "link") {
     const response = await (<Promise<{ message: string }>>(
       await fetch(`${process.env.DISCORD_LINK_API_URL}/userdata`, {
         method: "POST",
