@@ -29,3 +29,5 @@
   GUILD_ID = "ID of the guild this deployment targets"
   APPEALS_CHANNEL = "ID of the channel used for appeal form submission"
   JWT_SECRET = "JSON Web Token secret, mash keyboard plz"
+  DISCORD_LINK_API_URL = "URL of the Discord Link API"
+  DISCORD_LINK_API_KEY = "Discord Link API key"
